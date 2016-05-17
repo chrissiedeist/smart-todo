@@ -7,10 +7,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes');
-var users = require('./routes/user');
 
 var app = express();
 
+// controllers 
+
+var todos = require('./routes/todos')(app);
+var users = require('./routes/users')(app);
+var index = require('./routes/index')(app);
 
 app.set('port', process.env.PORT || 3000);
 // view engine setup
@@ -28,8 +32,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
-app.get('/', routes.index);
-app.get('/users', users.list);
+
+
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
