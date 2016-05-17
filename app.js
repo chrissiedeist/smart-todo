@@ -5,7 +5,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongoose = require('mongoose');
 var routes = require('./routes');
 var users = require('./routes/user');
 
@@ -16,6 +16,9 @@ app.set('port', process.env.PORT || 3000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+
+mongoose.connect('mongodb://localhost:2701/smart_todo');
 
 app.use(favicon());
 app.use(logger('dev'));
