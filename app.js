@@ -11,8 +11,15 @@ var routes = require('./routes');
 
 var app = express();
 
-// controllers
+app.use(logger('dev'));
+app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
+
+// controllers
 
 app.set('port', process.env.PORT || 3000);
 
@@ -31,12 +38,6 @@ var todos = require('./routes/todos')(app);
 var users = require('./routes/users')(app);
 var index = require('./routes/index')(app);
 
-app.use(favicon());
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 // app.use(app.router);
 
 
