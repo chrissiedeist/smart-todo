@@ -1,5 +1,30 @@
-extends layout
+doctype html
 
-block content
-  h1= title
-  p Welcome to #{title}
+html(ng-app='Todos')
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js")
+    script(src="core.js")
+
+  body(ng-controller="mainController")
+    div(ng-repeat="todo in todos")
+      li {{ todo.text }}
+
+    div#todo-form
+      div.text-center
+        form
+          div.form-group
+            input(type="text", placeholder="Something I have to do", ng-model="formData.text")
+  
+          button(type="submit", ng-click="createTodo()") Add
+
+
+
+
+
+
+  
+
+  
