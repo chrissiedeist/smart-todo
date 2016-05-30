@@ -5,24 +5,31 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var routes = require('./routes');
 
 var app = express();
 
-// controllers 
+// controllers
 
-var todos = require('./routes/todos')(app);
-var users = require('./routes/users')(app);
-var index = require('./routes/index')(app);
 
 app.set('port', process.env.PORT || 3000);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+var db = mongoose.connect('mongodb://localhost:27017/smart_todo');
 
-mongoose.connect('mongodb://localhost:2701/smart_todo');
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
+var todos = require('./routes/todos')(app);
+var users = require('./routes/users')(app);
+var index = require('./routes/index')(app);
 
 app.use(favicon());
 app.use(logger('dev'));
@@ -30,9 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(app.router);
-
-
+// app.use(app.router);
 
 
 /// catch 404 and forwarding to error handler

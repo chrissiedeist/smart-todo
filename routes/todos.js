@@ -1,13 +1,23 @@
+var mongoose = require('mongoose');
+// var Todo = require('../models/Todo')(mongoose);
+
+var Schema = mongoose.Schema;
+
+var TodoSchema = new Schema({
+  title: String,
+});
+
+var Todo = mongoose.model('Todo', TodoSchema);
+
 module.exports = function(app) {
   app.get('/api/todos', function(req, res) {
-    res.render('index', { title: 'Express' });
-  //   Todo.find(function(err, todos) {
-  //
-  //     if (err)
-  //     res.send(err)
-  //
-  //     res.json(todos); // return all todos in JSON format
-  //   });
+    Todo.find(function(err, todos) {
+
+      if (err)
+      res.send(err)
+
+      res.json(todos); // return all todos in JSON format
+    });
   });
 
   // create todo and send back all todos after creation
