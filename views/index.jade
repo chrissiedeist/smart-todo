@@ -9,8 +9,10 @@ html(ng-app='Todos')
     script(src="core.js")
 
   body(ng-controller="mainController")
-    div(ng-repeat="todo in todos")
-      li {{ todo.text }}
+    h1 Todos
+    div(class="checkbox", ng-repeat="todo in todos")
+      input(type="checkbox", ng-click="deleteTodo(todo._id)") 
+      | {{ todo.text }}
 
     div#todo-form
       div.text-center
