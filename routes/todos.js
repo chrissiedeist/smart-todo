@@ -1,12 +1,4 @@
-var mongoose = require('mongoose');
-
-var Schema = mongoose.Schema;
-
-var TodoSchema = new Schema({
-  text: String,
-});
-
-var Todo = mongoose.model('Todo', TodoSchema);
+var Todo = require('../models/Todo')
 
 module.exports = function(app) {
   app.get('/api/todos', function(req, res) {

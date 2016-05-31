@@ -1,8 +1,10 @@
-module.exports = function( mongoose ) {
-  var Schema = mongoose.Schema;
-
-  var TodoSchema = new Schema({
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  todoSchema = new Schema( {
     text: String,
-  });
-  mongoose.model('Todo', TodoSchema);
-}
+    location: String
+  })
+
+Todo = mongoose.model('todo', todoSchema);
+
+module.exports = Todo;
