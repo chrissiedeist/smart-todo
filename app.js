@@ -19,8 +19,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// controllers
-
 app.set('port', process.env.PORT || 3000);
 
 // view engine setup
@@ -34,12 +32,9 @@ app.use(function(req,res,next){
     next();
 });
 
-var todos = require('./routes/todos')(app);
-var users = require('./routes/users')(app);
-var index = require('./routes/index')(app);
-
-// app.use(app.router);
-
+// controllers
+require('./routes/todos')(app);
+require('./routes/index')(app);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
