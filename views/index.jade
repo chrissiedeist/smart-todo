@@ -14,19 +14,13 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(href='/home/').current Home 
+          a(href='#', ng-click="filterTodos('home')").current Home 
         li
-          if(currentUrl == '/work')
-            a(href='/work/').current Work 
-          else
-            a(href='/work/') Work
+          a(href='#', ng-click="filterTodos('work')") Work 
         li
-          if(currentUrl == '/out')
-            a(href='/out/').current Out
-          else
-            a(href='/out/') Out
+          a(href='#', ng-click="filterTodos('out')") Out
 
-    div(class="checkbox", ng-repeat="todo in todos")
+    div(class="checkbox", ng-repeat="todo in filteredTodos")
       input(type="checkbox", ng-click="deleteTodo(todo._id)") 
       | {{ todo.text }}
 
@@ -34,7 +28,7 @@ html(ng-app='Todos')
       div.text-center
         form
           div.form-group
-            input(type="text", placeholder="Something I have to do", ng-model="formData.text")
-            input(type="text", placeholder="Where?", ng-model="formData.location")
+            input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
+            input(type="text", placeholder="Where?", ng-model="newTodo.location")
 
           button(type="submit", ng-click="createTodo()") Add

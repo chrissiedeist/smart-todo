@@ -1,23 +1,35 @@
 var Todos = angular.module('Todos', []);
 
 function mainController($scope, $http) {
-    $scope.formData = {};
+    $scope.newTodo = {};
 
     $http.get('/api/todos')
         .success(function(data) {
-            $scope.todos = data;
+            $scope.allTodos = data;
+            $scope.filteredTodos = data;
             console.log(data);
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
 
+    $scope.filterTodos = function(location) {
+      var filteredTodos = [];
+
+      angular.forEach($scope.allTodos, function(todo) {
+        if(todo.location == location) {
+          filteredTodos.push(todo);
+        } 
+      });
+      $scope.filteredTodos = filteredTodos;
+    }
+
     $scope.createTodo = function() {
-        $http.post('/api/todos', $scope.formData)
+        $http.post('/api/todos', $scope.newTodo)
             .success(function(data) {
-                $scope.formData = {};
-                $scope.todos = data;
-                console.log(data);
+                $scope.newTodo = {};
+                $scope.allTodos = data;
+                $scope.filteredTodos = $scope.filterTodos('home');
             })
             .error(function(data) {
                 console.log('Error: ' + data);
