@@ -14,6 +14,7 @@ module.exports = function(app) {
   app.post('/api/todos', function(req, res) {
     Todo.create({
         text : req.body.text,
+        location: req.body.location,
         done : false
     }, function(err, todo) {
         Todo.find(function(err, todos) {
