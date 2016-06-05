@@ -29,6 +29,10 @@ function mainController($scope, $http) {
       }
     }
 
+    $scope.selectedTab = function(location) {
+      return $scope.location == location;
+    };
+
     $scope.createTodo = function() {
         $scope.newTodo.location = $scope.location;
         $http.post('/api/todos', $scope.newTodo)

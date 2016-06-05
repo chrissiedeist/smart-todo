@@ -14,13 +14,13 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(href='#', ng-click="filterTodos()").current All
+          a(href='#', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All
         li
-          a(href='#', ng-click="filterTodos('home')") Home 
+          a(href='#', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home 
         li
-          a(href='#', ng-click="filterTodos('work')") Work 
+          a(href='#', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work 
         li
-          a(href='#', ng-click="filterTodos('out')") Out
+          a(href='#', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out 
 
     div(class="checkbox", ng-repeat="todo in filteredTodos")
       input(type="checkbox", ng-click="deleteTodo(todo._id)") 
