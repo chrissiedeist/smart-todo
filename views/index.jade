@@ -14,7 +14,9 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(href='#', ng-click="filterTodos('home')").current Home 
+          a(href='#', ng-click="filterTodos()").current All
+        li
+          a(href='#', ng-click="filterTodos('home')") Home 
         li
           a(href='#', ng-click="filterTodos('work')") Work 
         li

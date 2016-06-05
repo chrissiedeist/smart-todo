@@ -2,12 +2,11 @@ var Todos = angular.module('Todos', []);
 
 function mainController($scope, $http) {
     $scope.newTodo = {};
-    $scope.location = 'home';
 
     $http.get('/api/todos')
         .success(function(data) {
             $scope.allTodos = data;
-            $scope.filterTodos;
+            $scope.filterTodos($scope.location);;
             console.log(data);
         })
         .error(function(data) {
@@ -18,12 +17,16 @@ function mainController($scope, $http) {
       var filteredTodos = [];
       $scope.location = location;
 
-      angular.forEach($scope.allTodos, function(todo) {
-        if(todo.location == location) {
-          filteredTodos.push(todo);
-        } 
-      });
-      $scope.filteredTodos = filteredTodos;
+      if (location == null) {
+        $scope.filteredTodos = $scope.allTodos;
+      } else {
+        angular.forEach($scope.allTodos, function(todo) {
+          if(todo.location == location) {
+            filteredTodos.push(todo);
+          } 
+        });
+        $scope.filteredTodos = filteredTodos;
+      }
     }
 
     $scope.createTodo = function() {
