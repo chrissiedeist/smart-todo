@@ -15,11 +15,14 @@ module.exports = function(app) {
     Todo.create({
         text : req.body.text,
         location : req.body.location,
+        when : req.body.when,
         done : false
     }, function(err, todo) {
         Todo.find(function(err, todos) {
             if (err)
                 res.send(err)
+            console.log("Created todo!");
+            console.log(todo);
             res.json(todos);
         });
     });

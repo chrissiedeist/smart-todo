@@ -33,8 +33,9 @@ function mainController($scope, $http) {
       return $scope.location == location;
     };
 
-    $scope.createTodo = function() {
+    $scope.createTodo = function(when) {
         $scope.newTodo.location = $scope.location;
+        $scope.newTodo.when = when;
         $http.post('/api/todos', $scope.newTodo)
             .success(function(data) {
                 $scope.newTodo = {};

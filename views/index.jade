@@ -22,14 +22,28 @@ html(ng-app='Todos')
         li
           a(href='#', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out 
 
-    div(class="checkbox", ng-repeat="todo in filteredTodos")
+
+    h2 Today
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter:{when:'today'}")
       input(type="checkbox", ng-click="deleteTodo(todo._id)") 
       | {{ todo.text }}
-
     div#todo-form
       div.text-center
         form
           div.form-group
             input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
 
-          button(type="submit", ng-click="createTodo()") Add
+          button(type="submit", ng-click="createTodo('today')") Add
+
+    h2 Eventually 
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {when: 'eventually' }")
+      input(type="checkbox", ng-click="deleteTodo(todo._id)") 
+      | {{ todo.text }}
+    div#todo-form
+      div.text-center
+        form
+          div.form-group
+            input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
+
+          button(type="submit", ng-click="createTodo('eventually')") Add
+
