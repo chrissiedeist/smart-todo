@@ -5,45 +5,13 @@ html(ng-app='Todos')
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
-    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js")
-    script(src="core.js")
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
 
-  body(ng-controller="mainController")
-    h1 Todos
-
-    div#nav
-      ul
-        li
-          a(href='#', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All
-        li
-          a(href='#', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home 
-        li
-          a(href='#', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work 
-        li
-          a(href='#', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out 
+    script(src="app.module.js")
+    script(src="todo-list/todo-list.module.js")
+    script(src="todo-list/todo-list.component.js")
 
 
-    h2 Today
-    div(class="checkbox", ng-repeat="todo in filteredTodos | filter:{when:'today'}")
-      input(type="checkbox", ng-click="deleteTodo(todo._id)") 
-      | {{ todo.text }}
-    div#todo-form
-      div.text-center
-        form
-          div.form-group
-            input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
-
-          button(type="submit", ng-click="createTodo('today')") Add
-
-    h2 Eventually 
-    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {when: 'eventually' }")
-      input(type="checkbox", ng-click="deleteTodo(todo._id)") 
-      | {{ todo.text }}
-    div#todo-form
-      div.text-center
-        form
-          div.form-group
-            input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
-
-          button(type="submit", ng-click="createTodo('eventually')") Add
-
+  body
+  todo-list(when='today')
+  todo-list(when='eventually')

@@ -1,0 +1,17 @@
+<h2>{{ $ctrl.when.toUpperCase() }}</h2>
+<div class="checkbox" ng-repeat="todo in $ctrl.allTodos | filter:{when: $ctrl.when } ">
+    <input type="checkbox" ng-click="$ctrl.deleteTodo(todo._id)")> {{ todo.text }} </input>
+  </div>
+  <div id="todo-form">
+    <div class="text-center">
+      <form>
+        <div class="form-group">
+          <input type="text" placeholder="Thing to do {{$ctrl.when}}", ng-model="$ctrl.newTodo.text")>
+
+          <button type="submit" ng-click="$ctrl.createTodo()"> Add</button>
+      </div>
+      </form>
+    </div>
+  </div>
+
+
