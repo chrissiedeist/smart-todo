@@ -13,5 +13,18 @@ html(ng-app='Todos')
 
 
   body
+  h1 Todos                                                                                                 
+                                                                                                           
+  div#nav                                                                                                  
+    ul                                                                                                     
+      li                                                                                                   
+        a(href='#all', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All                
+      li                                                                                                   
+        a(href='#home', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home   
+      li                                                                                                   
+        a(href='#work', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work   
+      li                                                                                                   
+        a(href='#out', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out      
+
   todo-list(when='today')
   todo-list(when='eventually')

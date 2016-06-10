@@ -1,12 +1,27 @@
 'use-strict'
 
-function TodoListController($http) {
+
+function TodoListController($http, $location) {
   var self = this;
+
+  self.filterByLocation = function(todos) {
+    var filteredTodos = [];
+    todos.forEach(function(todo) {
+      if(todo.location && todo.location == $location.path.toString().slice(1)){
+        console.log("match!");
+      } else {
+        if (todo.location) {console.log("locaiton is: " + todo.location) }
+        console.log("no match");
+      }
+    })
+  };
+
   self.newTodo = {};
 
+    console.log("location is: " + $location.path());
   $http.get('/api/todos')
       .success(function(data) {
-          self.allTodos = data;
+          self.allTodos = self.filterByLocation(data);
           console.log(data);
           console.log('Success');
       })
