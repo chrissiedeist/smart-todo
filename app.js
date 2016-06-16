@@ -25,7 +25,8 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-var db = mongoose.connect('mongodb://localhost:27017/smart_todo');
+var db_uri = process.env['MONGODB_URI'] || "mongodb://localhost:27017/smart_todo"
+var db = mongoose.connect(db_uri);
 
 app.use(function(req,res,next){
     req.db = db;
