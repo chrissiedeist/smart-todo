@@ -9,21 +9,21 @@ html(ng-app='Todos')
     script(src="core.js")
 
   body(ng-controller="mainController")
-    h1 Todos
+    h1 All the things
 
     div#nav
       ul
         li
           a(href='#', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All
         li
-          a(href='#', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home 
+          a(href='#', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home
         li
-          a(href='#', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work 
+          a(href='#', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work
         li
-          a(href='#', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out 
+          a(href='#', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out
 
     div(class="checkbox", ng-repeat="todo in filteredTodos")
-      input(type="checkbox", ng-click="deleteTodo(todo._id)") 
+      input(type="checkbox", ng-click="deleteTodo(todo._id)")
       | {{ todo.text }}
 
     div#todo-form
