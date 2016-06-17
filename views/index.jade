@@ -20,6 +20,8 @@ html(ng-app='Todos')
         li
           a(href='#work', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work
         li
+          a(href='#lunch', ng-click="filterTodos('lunch')", ng-class="{ 'current' : selectedTab('lunch') }") Lunch
+        li
           a(href='#out', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out
 
     div(class="checkbox", ng-repeat="todo in filteredTodos")
