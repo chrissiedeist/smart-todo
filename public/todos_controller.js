@@ -1,11 +1,11 @@
 angular.module('Todos', [])
-.controller('TodosCtrl', function($scope, $http) {
+.controller('TodosCtrl', function($scope, $http, $location) {
     $scope.newTodo = {};
 
     $http.get('/api/todos')
         .success(function(data) {
             $scope.allTodos = data;
-            $scope.filterTodos($scope.location);;
+            $scope.filteredTodos = _getFilteredTodos(data, _current_path());;
             console.log(data);
         })
         .error(function(data) {
@@ -13,32 +13,20 @@ angular.module('Todos', [])
         });
 
     $scope.filterTodos = function(location) {
-      var filteredTodos = [];
-      $scope.location = location;
+      $scope.filteredTodos = _getFilteredTodos($scope.allTodos, location);
+    };
 
-      if (location == null) {
-        $scope.filteredTodos = $scope.allTodos;
-      } else {
-        angular.forEach($scope.allTodos, function(todo) {
-          if(todo.location == location) {
-            filteredTodos.push(todo);
-          }
-        });
-        $scope.filteredTodos = filteredTodos;
-      }
-    }
-
-    $scope.selectedTab = function(location) {
-      return $scope.location == location;
+    $scope.selectedTab = function(tab) {
+      return (_current_path() == tab);
     };
 
     $scope.createTodo = function() {
-        $scope.newTodo.location = $scope.location;
+        $scope.newTodo.location = _current_path();
         $http.post('/api/todos', $scope.newTodo)
             .success(function(data) {
                 $scope.newTodo = {};
                 $scope.allTodos = data;
-                $scope.filterTodos($scope.location);
+                $scope.filteredTodos = _getFilteredTodos(data, _current_path());
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -50,12 +38,30 @@ angular.module('Todos', [])
         $http.delete('/api/todos/' + id)
             .success(function(data) {
                 console.log("data after delete: " + data);
-                console.log("location after delete: " + $scope.location);
                 $scope.allTodos = data;
-                $scope.filterTodos($scope.location);
+                $scope.filteredTodos = _getFilteredTodos(data, _current_path());
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
     };
+
+    var _current_path = function() {
+      return $location.path().toString().slice(1);
+    }
+
+    var _getFilteredTodos = function(allTodos, location) {
+      var filteredTodos = [];
+
+      if (location == null) {
+        return allTodos;
+      } else {
+        angular.forEach(allTodos, function(todo) {
+          if(todo.location == location) {
+            filteredTodos.push(todo);
+          }
+        });
+        return filteredTodos;
+      }
+    }
 });

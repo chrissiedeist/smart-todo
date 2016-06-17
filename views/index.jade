@@ -6,7 +6,6 @@ html(ng-app='Todos')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js")
-    script(src="todos_module.js")
     script(src="todos_controller.js")
 
   body(ng-controller="TodosCtrl")
@@ -15,13 +14,13 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(href='#', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All
+          a(href='#all', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All
         li
-          a(href='#', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home
+          a(href='#home', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home
         li
-          a(href='#', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work
+          a(href='#work', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work
         li
-          a(href='#', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out
+          a(href='#out', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out
 
     div(class="checkbox", ng-repeat="todo in filteredTodos")
       input(type="checkbox", ng-click="deleteTodo(todo._id)")
