@@ -1,6 +1,5 @@
-var Todos = angular.module('Todos', []);
-
-function mainController($scope, $http) {
+angular.module('Todos', [])
+.controller('TodosCtrl', function($scope, $http) {
     $scope.newTodo = {};
 
     $http.get('/api/todos')
@@ -23,7 +22,7 @@ function mainController($scope, $http) {
         angular.forEach($scope.allTodos, function(todo) {
           if(todo.location == location) {
             filteredTodos.push(todo);
-          } 
+          }
         });
         $scope.filteredTodos = filteredTodos;
       }
@@ -59,4 +58,4 @@ function mainController($scope, $http) {
                 console.log('Error: ' + data);
             });
     };
-}
+});
