@@ -14,16 +14,29 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(href='#any', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab('any') }") Any
-        li
-          a(href='#home', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home
-        li
           a(href='#work', ng-click="filterTodos('work')", ng-class="{ 'current' : selectedTab('work') }") Work
         li
           a(href='#lunch', ng-click="filterTodos('lunch')", ng-class="{ 'current' : selectedTab('lunch') }") Lunch
         li
+          a(href='#home', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home
+        li
           a(href='#out', ng-click="filterTodos('out')", ng-class="{ 'current' : selectedTab('out') }") Out
+        li
+          a(href='#apps', ng-click="filterTodos('apps')", ng-class="{ 'current' : selectedTab('apps') }") Apps
+        li
+          a(href='#other', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab('other') }") Other
 
+    h3 ASAP
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when':'asap'}")
+      input(type="checkbox", ng-click="deleteTodo(todo._id)")
+      | {{ todo.text }}
+
+    h3 Later
+    div(class="checkbox", ng-repeat="todo in filteredTodos")
+      input(type="checkbox", ng-click="deleteTodo(todo._id)")
+      | {{ todo.text }}
+
+    h3 Eventually
     div(class="checkbox", ng-repeat="todo in filteredTodos")
       input(type="checkbox", ng-click="deleteTodo(todo._id)")
       | {{ todo.text }}
@@ -33,5 +46,6 @@ html(ng-app='Todos')
         form
           div.form-group
             input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
+            input(type="when", placeholder="When?", ng-model="newTodo.when")
 
           button(type="submit", ng-click="createTodo()") Add
