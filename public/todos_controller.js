@@ -52,16 +52,11 @@ angular.module('Todos', [])
 
     var _getFilteredTodos = function(allTodos, location) {
       var filteredTodos = [];
-
-      if (location == null) {
-        return allTodos;
-      } else {
-        angular.forEach(allTodos, function(todo) {
-          if(todo.location == location) {
-            filteredTodos.push(todo);
-          }
-        });
-        return filteredTodos;
-      }
-    }
+      angular.forEach(allTodos, function(todo) {
+        if(todo.location == location) {
+          filteredTodos.push(todo);
+        }
+      });
+      return filteredTodos;
+    };
 });

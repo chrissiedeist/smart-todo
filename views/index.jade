@@ -14,7 +14,7 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(href='#all', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab() }") All
+          a(href='#any', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab('any') }") Any
         li
           a(href='#home', ng-click="filterTodos('home')", ng-class="{ 'current' : selectedTab('home') }") Home
         li
