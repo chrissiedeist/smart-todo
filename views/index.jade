@@ -26,28 +26,25 @@ html(ng-app='Todos')
         li
           a(href='#other', ng-click="filterTodos()", ng-class="{ 'current' : selectedTab('other') }") Other
 
-    h3 ASAP
-    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when':'asap'}")
+
+    div#nav
+      ul
+        li
+          a(ng-click="setWhen('asap')", ng-class="{ 'current' : selectedWhen('asap') }") ASAP
+        li
+          a(ng-click="setWhen('today')", ng-class="{ 'current' : selectedWhen('today') }") Today
+        li
+          a(ng-click="setWhen('eventually')", ng-class="{ 'current' : selectedWhen('eventually') }") Eventually
+
+
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when': getWhen() }")
       input(type="checkbox", ng-click="deleteTodo(todo._id)")
-      | {{ todo.text }}
+      |  {{ todo.text }}
 
-    h3 Today
-    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when':'today'}")
-      input(type="checkbox", ng-click="deleteTodo(todo._id)")
-      | {{ todo.text }}
-
-    h3 Eventually
-    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when':'eventually'}")
-      input(type="checkbox", ng-click="deleteTodo(todo._id)")
-      | {{ todo.text }}
-
-
-    br
     div#todo-form
       div.text-center
         form
           div.form-group
             input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
-            input(type="when", placeholder="When?", ng-model="newTodo.when")
 
           button(type="submit", ng-click="createTodo()") Add

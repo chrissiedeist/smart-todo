@@ -1,6 +1,8 @@
 angular.module('Todos', [])
 .controller('TodosCtrl', function($scope, $http, $location) {
     $scope.newTodo = {};
+    $scope.when = 'asap';
+
 
     $http.get('/api/todos')
         .success(function(data) {
@@ -20,11 +22,21 @@ angular.module('Todos', [])
       return (_current_path() == tab);
     };
 
+    $scope.getWhen = function() {
+      return $scope.when;
+    };
+
+    $scope.setWhen = function(when) {
+      $scope.when = when;
+    };
+
+    $scope.selectedWhen = function(when) {
+      return $scope.when == when;
+    };
+
     $scope.createTodo = function() {
         $scope.newTodo.location = _current_path();
-        if (!$scope.newTodo.when) {
-          $scope.newTodo.when = 'today';
-        }
+        $scope.newTodo.when = $scope.when;
         $http.post('/api/todos', $scope.newTodo)
             .success(function(data) {
                 $scope.newTodo = {};
