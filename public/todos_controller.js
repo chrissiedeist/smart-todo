@@ -22,6 +22,9 @@ angular.module('Todos', [])
 
     $scope.createTodo = function() {
         $scope.newTodo.location = _current_path();
+        if (!$scope.newTodo.when) {
+          $scope.newTodo.when = 'today';
+        }
         $http.post('/api/todos', $scope.newTodo)
             .success(function(data) {
                 $scope.newTodo = {};

@@ -31,16 +31,18 @@ html(ng-app='Todos')
       input(type="checkbox", ng-click="deleteTodo(todo._id)")
       | {{ todo.text }}
 
-    h3 Later
-    div(class="checkbox", ng-repeat="todo in filteredTodos")
+    h3 Today
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when':'today'}")
       input(type="checkbox", ng-click="deleteTodo(todo._id)")
       | {{ todo.text }}
 
     h3 Eventually
-    div(class="checkbox", ng-repeat="todo in filteredTodos")
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when':'eventually'}")
       input(type="checkbox", ng-click="deleteTodo(todo._id)")
       | {{ todo.text }}
 
+
+    br
     div#todo-form
       div.text-center
         form
