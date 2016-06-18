@@ -30,8 +30,6 @@ html(ng-app='Todos')
     div#nav
       ul
         li
-          a(ng-click="setWhen('asap')", ng-class="{ 'current' : selectedWhen('asap') }") ASAP
-        li
           a(ng-click="setWhen('today')", ng-class="{ 'current' : selectedWhen('today') }") Today
         li
           a(ng-click="setWhen('eventually')", ng-class="{ 'current' : selectedWhen('eventually') }") Eventually

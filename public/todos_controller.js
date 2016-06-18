@@ -1,7 +1,7 @@
 angular.module('Todos', [])
 .controller('TodosCtrl', function($scope, $http, $location) {
     $scope.newTodo = {};
-    $scope.when = 'asap';
+    $scope.when = 'today';
 
 
     $http.get('/api/todos')
