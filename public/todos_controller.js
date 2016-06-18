@@ -7,7 +7,7 @@ angular.module('Todos', [])
     $http.get('/api/todos')
         .success(function(data) {
             $scope.allTodos = data;
-            $scope.filteredTodos = _getFilteredTodos(data, _current_path());;
+            $scope.filteredTodos = _getFilteredTodos(data, _currentPath());;
             console.log(data);
         })
         .error(function(data) {
@@ -19,7 +19,7 @@ angular.module('Todos', [])
     };
 
     $scope.selectedTab = function(tab) {
-      return (_current_path() == tab);
+      return (_currentPath() == tab);
     };
 
     $scope.getWhen = function() {
@@ -35,13 +35,13 @@ angular.module('Todos', [])
     };
 
     $scope.createTodo = function() {
-        $scope.newTodo.location = _current_path();
+        $scope.newTodo.location = _currentPath();
         $scope.newTodo.when = $scope.when;
         $http.post('/api/todos', $scope.newTodo)
             .success(function(data) {
                 $scope.newTodo = {};
                 $scope.allTodos = data;
-                $scope.filteredTodos = _getFilteredTodos(data, _current_path());
+                $scope.filteredTodos = _getFilteredTodos(data, _currentPath());
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -49,19 +49,18 @@ angular.module('Todos', [])
     };
 
     $scope.deleteTodo = function(id) {
-        console.log("delete it: " + id);
         $http.delete('/api/todos/' + id)
             .success(function(data) {
                 console.log("data after delete: " + data);
                 $scope.allTodos = data;
-                $scope.filteredTodos = _getFilteredTodos(data, _current_path());
+                $scope.filteredTodos = _getFilteredTodos(data, _currentPath());
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
     };
 
-    var _current_path = function() {
+    var _currentPath = function() {
       return $location.path().toString().slice(1);
     }
 
