@@ -35,8 +35,9 @@ html(ng-app='Todos')
           a(ng-click="setWhen('eventually')", ng-class="{ 'current' : selectedWhen('eventually') }") Eventually
 
 
-    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when': getWhen() }")
-      input(type="checkbox", ng-click="deleteTodo(todo._id)")
+    h3 To Do
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when': getWhen() } | filter: {'done': false }")
+      input(type="checkbox", ng-click="markDone(todo._id)")
       |  {{ todo.text }}
 
     div#todo-form
@@ -46,3 +47,8 @@ html(ng-app='Todos')
             input(type="text", placeholder="Something I have to do", ng-model="newTodo.text")
 
           button(type="submit", ng-click="createTodo()") Add
+
+    h3 Done
+    div(class="checkbox", ng-repeat="todo in filteredTodos | filter: {'when': getWhen()} | filter: {'done': true }")
+      input(type="checkbox", ng-click="deleteTodo(todo._id)")
+      |  {{ todo.text }}

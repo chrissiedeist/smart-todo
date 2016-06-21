@@ -48,6 +48,19 @@ angular.module('Todos', [])
             });
     };
 
+    $scope.markDone = function(id) {
+        $http.put('/api/todos/' + id)
+            .success(function(data) {
+                console.log("data after marking done: " + data);
+                $scope.allTodos = data;
+                $scope.filteredTodos = _getFilteredTodos(data, _currentPath());
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+    };
+
     $scope.deleteTodo = function(id) {
         $http.delete('/api/todos/' + id)
             .success(function(data) {

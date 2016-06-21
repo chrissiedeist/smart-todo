@@ -40,4 +40,20 @@ module.exports = function(app) {
       });
     });
   });
+
+  app.put('/api/todos/:todo_id', function(req, res) {
+    // console.log("updating todo..." + todo_id);
+    var id = req.param('todo_id');
+    Todo.update(
+      { _id: id },
+      { done : true },
+      { multi: false },
+      function(err, todo) {
+        Todo.find(function(err, todos) {
+            if (err)
+                res.send(err)
+            res.json(todos);
+        });
+    });
+  });
 }
